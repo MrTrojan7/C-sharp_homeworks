@@ -45,13 +45,13 @@ namespace test
             }
         }
 
-        public static Point operator +(Point a, Point b)
+        public static Point operator +(Point obj1, Point obj2)
         {
-            return new Point(a.X + b.X, a.Y + b.Y);
+            return new Point(obj1.X + obj2.X, obj1.Y + obj2.Y);
         }
-        public static int operator +(Point a, int b)
+        public static int operator +(Point obj, int b)
         {
-            return a.X + a.Y + b;
+            return obj.X + obj.Y + b;
         }
         public static int operator +(int num, Point obj)
         {
@@ -65,18 +65,18 @@ namespace test
         {
             return new Point(obj.X - num, obj.Y - num);
         }
-        public static Point operator -(Point a, Point b)
+        public static Point operator -(Point obj1, Point obj2)
         {
-            return new Point(a.X - b.X, a.Y - b.Y);
+            return new Point(obj1.X - obj2.X, obj1.Y - obj2.Y);
         }
 
-        public static Point operator *(Point a, Point b)
+        public static Point operator *(Point obj1, Point obj2)
         {
-            return new Point(a.X * b.X, a.Y * b.Y);
+            return new Point(obj1.X * obj2.X, obj1.Y * obj2.Y);
         }
-        public static int operator *(Point a, int b)
+        public static int operator *(Point obj, int b)
         {
-            return a.X * a.Y * b;
+            return obj.X * obj.Y * b;
         }
         public static int operator *(int num, Point obj)
         {
