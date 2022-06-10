@@ -2,6 +2,9 @@
 
 namespace Stairs
 {
+    /// <summary>
+    /// stairs 
+    /// </summary>
     internal class Program
     {
         public static void Main()
