@@ -34,8 +34,11 @@ namespace StudentGroup
             this.Age = GetAge(date_time);
             this.Telephone_number = teleph_num;
             credits = new List<int> { };
+            AddMarks(ref credits, 5);
             course_work = new List<int> { };
+            AddMarks(ref course_work, 3);
             exams = new List<int> { };
+            AddMarks(ref exams, 2);
         }
         // delegate c-tors
         public Student() : this(Surnames(), Names(), Patronymics(), 
@@ -158,12 +161,14 @@ namespace StudentGroup
         {
             if (arr.Count == 0)
             {
+                Console.WriteLine();
                 return;
             }
             for (int i = 0; i < arr.Count; i++)
             {
                 Console.Write(arr[i] + " ");
             }
+            Console.WriteLine();
         }
 
         public void AddCredits (int val)
@@ -188,6 +193,13 @@ namespace StudentGroup
             }
         }
 
+        private void AddMarks(ref List<int> arr, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                arr.Add(rnd.Next(0,13));
+            }
+        }
 
         //// validation checks
         private bool CheckIndexOfMark(ref List <int> arr, int index)
