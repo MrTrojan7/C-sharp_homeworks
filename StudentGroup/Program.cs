@@ -11,23 +11,21 @@ namespace StudentGroup
     {
         static void Main()
         {
-            
-            DateTime dt = new DateTime(2000, 10, 10);
-            DateTime dt2 = new DateTime(2001, 1, 1);
-            if (dt > dt2)
-            {
-                //Console.WriteLine("true");
-            }
-            
             Student b = new Student("Alan");
             b.AddCourseWorks(12);
             //b.ShowStudent();
 
             Group a = new Group(10);
             a.ShowGroup();
-            a.SortByLastName();
-            Console.WriteLine("SORTED:");
+            a.Remove();
+            //a.ShowGroup();
+            a.AddStudent(ref b);
+            //a.ShowGroup();
+            a.Remove();
+            a.Remove();
+            a.Remove();
             a.ShowGroup();
+            a[2].ShowStudent();
         }
     }
 }
