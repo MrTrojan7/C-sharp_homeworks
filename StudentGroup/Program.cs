@@ -23,8 +23,10 @@ namespace StudentGroup
             b.AddCourseWorks(12);
             //b.ShowStudent();
 
-            Group a = new Group(2);
-            a.PrintGroup();
+            Group a = new Group(10);
+            a.ShowGroup();
+            a.SortByLastName();
+            Console.WriteLine("SORTED:");
             a.ShowGroup();
         }
     }

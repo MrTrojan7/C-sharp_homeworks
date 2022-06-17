@@ -78,15 +78,8 @@ namespace StudentGroup
             }
             set
             {
-                try
-                {
-                    students[index] = value;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new InvalidOperationException();
-
-                }
+                IsVAlidIndexOfStudents(index);
+                students[index] = value;
             }
         }
         // check index in array of students
@@ -102,9 +95,11 @@ namespace StudentGroup
 
             }
         }
+
+        // ShowGroup for()
         public void ShowGroup()
         {
-            Console.WriteLine("======================");
+            Console.WriteLine("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
             Console.WriteLine("Group name: " + Name_of_group);
             Console.WriteLine("Specialization: " + Specialization);
             Console.WriteLine("Count of students: " + Count_of_students);
@@ -118,19 +113,33 @@ namespace StudentGroup
             }
         }
 
+        // PrintGroup (foreach)
         public void PrintGroup()
         {
-            Console.WriteLine("======================");
+            Console.WriteLine("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
             Console.WriteLine("Group name: " + Name_of_group);
             Console.WriteLine("Specialization: " + Specialization);
             Console.WriteLine("Count of students: " + Count_of_students);
             Console.WriteLine("Course: " + Course);
             Console.WriteLine("List of Students: ");
-            Console.WriteLine();
             foreach (var item in students)
             {
                 item.ShowStudent();
             }
+        }
+        public void SortByAverage()
+        {
+            students.Sort();
+        }
+
+        public void SortByLastName()
+        {
+            students.Sort(new SortBySurname());
+        }
+
+        public void SortByDateOfBirth()
+        {
+            students.Sort(new SortByAge());
         }
     }
 }
