@@ -46,6 +46,7 @@ x64/
 *.v2
 *.vsidx
 *.lock
+*.v1
 
 #Ignore subfolders
 /StudentGroup/bin
