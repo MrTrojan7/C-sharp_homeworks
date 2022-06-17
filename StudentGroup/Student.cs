@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentGroup
 {
-    public class Student
+    public class Student : IComparable<Student>
     {
         private string surname;
         private string name;
@@ -24,38 +24,38 @@ namespace StudentGroup
         // c-tors
         public Student(string surname, string name, string patronymic, 
             DateTime date_time,
-            string address, int teleph_num)
+            string address, int teleph_num) // main c-tor
         {
             this.Surname = surname;
             this.Name = name;
             this.Patronymic = patronymic;
             this.Date_of_birth = date_time;
             this.Address = address;
-            this.Age = GetAge(date_time);
+            this.Age = SetAge(date_time);
             this.Telephone_number = teleph_num;
             credits = new List<int> { };
-            AddMarks(ref credits, 5);
+            AddRandomMarks(ref credits, 1);
             course_work = new List<int> { };
-            AddMarks(ref course_work, 3);
+            AddRandomMarks(ref course_work, 1);
             exams = new List<int> { };
-            AddMarks(ref exams, 2);
+            AddRandomMarks(ref exams, 1);
         }
         // delegate c-tors
         public Student() : this(Surnames(), Names(), Patronymics(), 
-            DateTime.Today, "Chernyahovskogo 1", TelephoneNumber()) 
+            DateTime.Today, "Chernyahovskogo 1", TelephoneNumber())  // Default
         { }
 
         public Student(string surname, string name, string patronymic) : 
             this(surname, name, patronymic, DateTime.Today, 
-                "Chernyahovskogo 1", TelephoneNumber()) 
+                "Chernyahovskogo 1", TelephoneNumber()) // Surname, Name, Pathronymic
         { }
 
         public Student(string name, DateTime date_time, string address, int telephone) : 
-            this(Surnames(), name, Patronymics(), date_time, address, telephone)
+            this(Surnames(), name, Patronymics(), date_time, address, telephone) // Name, Date, Address, Telephone
         { }
 
         public Student(string name) :
-            this(Surnames(), name, Patronymics(), DateTime.Today, "Chernyahovskogo 1", TelephoneNumber())
+            this(Surnames(), name, Patronymics(), DateTime.Today, "Chernyahovskogo 1", TelephoneNumber()) // Name
         { }
 
         // show 
@@ -67,19 +67,21 @@ namespace StudentGroup
             Console.WriteLine("Age: " + Age);
             Console.WriteLine("Address: " + Address);
             Console.WriteLine("Telephone_number: " + Telephone_number);
-            Console.WriteLine("date_of_bird: " + Date_of_birth);
+            Console.WriteLine("date_of_bird: " + Date_of_birth.ToShortDateString()); // toFix this crutch (use DateOnly)
             Console.Write("credits: ");
             ShowMarks(credits);
             Console.Write("course works: ");
             ShowMarks(course_work);
             Console.Write("exams: ");
             ShowMarks(exams);
+            Console.WriteLine("Average: " + Average());
+            Console.WriteLine("--------------------------");
         }
-        //// begin generation information
+        //// generation information for default c-tor
         private static string Surnames ()
         {
             string[] surnames = { "Danylenko", "Lypchuk", "Danyliuk",
-                                "Petrych", "Danylovych", "Kobzar", "Tkach",
+                                "Petrych", "Danylov", "Kobzar", "Tkach",
                                 "Sklyar", "Grabovets", "Kolomiets"};
             return surnames[rnd.Next(0, 10)];
         }
@@ -101,12 +103,11 @@ namespace StudentGroup
         {
             return rnd.Next(10000000, 99999999);
         }
-        //// end generation information
-         
+
         //// get/set 
         public DateTime Date_of_birth
         {
-            get { return date_of_birth; }
+            get { return date_of_birth.Date; }
             set
             {
                 if (value > DateTime.Today)
@@ -149,10 +150,17 @@ namespace StudentGroup
             get { return telephone_number; }
             set { this.telephone_number = value; }
         }
-        private uint GetAge(DateTime dt)
+        private uint SetAge(DateTime dt)
         {
             TimeSpan timeSpan = (DateTime.Today - this.date_of_birth);
             return (uint)timeSpan.TotalDays / 365;
+        }
+
+        // average
+        public double Average()
+        {
+
+            return ((double)course_work.Average() + (double)credits.Average() + (double)exams.Average()) / 3;
         }
 
         /// //// Marks
@@ -173,27 +181,27 @@ namespace StudentGroup
 
         public void AddCredits (int val)
         {
-            if (CheckMark(ref val))
+            if (CheckValueOfMark(ref val))
             {
                 credits.Add(val);
             }
         }
         public void AddCourseWorks(int val)
         {
-            if (CheckMark(ref val))
+            if (CheckValueOfMark(ref val))
             {
                 course_work.Add(val);
             }
         }
         public void AddExams(int val)
         {
-            if (CheckMark(ref val))
+            if (CheckValueOfMark(ref val))
             {
                 exams.Add(val);
             }
         }
 
-        private void AddMarks(ref List<int> arr, int count)
+        private void AddRandomMarks(ref List<int> arr, int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -201,7 +209,7 @@ namespace StudentGroup
             }
         }
 
-        //// validation checks
+        //// validation checks of marks
         private bool CheckIndexOfMark(ref List <int> arr, int index)
         {
             if (index < 0 || index > arr.Count)
@@ -210,12 +218,29 @@ namespace StudentGroup
                 return true;
         }
 
-        private bool CheckMark(ref int val)
+        private bool CheckValueOfMark(ref int val)
         {
             if (val <= 0 || val > 12)
                 return false;
             return true;
         }
 
+        // CompareTo
+        
+        public int CompareTo(Student second)
+        {
+            if (this.Average() > second.Average())
+            {
+                return 1;
+            }
+            else if (this.Average() < second.Average())
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

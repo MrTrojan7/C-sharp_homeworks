@@ -18,10 +18,14 @@ namespace StudentGroup
             {
                 //Console.WriteLine("true");
             }
-            Student a = new Student("Petrow", "Yurij", "Yurijovych", dt, "Chernyahovskogo 3", 2322123);
-            a.ShowStudent();
+            
             Student b = new Student("Alan");
-            b.ShowStudent();
+            b.AddCourseWorks(12);
+            //b.ShowStudent();
+
+            Group a = new Group(2);
+            a.PrintGroup();
+            a.ShowGroup();
         }
     }
 }
