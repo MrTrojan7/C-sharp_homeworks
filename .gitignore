@@ -45,6 +45,7 @@ x64/
 *.scc
 *.v2
 *.vsidx
+*.lock
 
 
 # Visual C++ cache files
