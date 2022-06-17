@@ -47,7 +47,23 @@ x64/
 *.vsidx
 *.lock
 
-
+#Ignore subfolders
+/StudentGroup/bin
+/StudentGroup/obj
+/ConsoleApp1/bin
+/ConsoleApp1/obj
+/ConsoleApp2/bin
+/ConsoleApp2/obj
+/ConsoleApp3/bin
+/ConsoleApp3/obj
+/ConsoleApp4/bin
+/ConsoleApp4/obj
+/Laptop/bin
+/Laptop/obj
+/Spiral/bin
+/Spiral/obj
+/Training/bin
+/Training/obj
 # Visual C++ cache files
 ipch/
 *.aps
