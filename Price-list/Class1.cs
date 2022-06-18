@@ -11,11 +11,11 @@ namespace Price_list
         protected string name_of_carrier;
         protected string name_of_manufacturer;
         protected string model;
-        protected int count;
+        protected uint count;
         protected double price;
 
         public Memory_carrier(string name_of_carrier, string name_of_manufacturer, 
-            string model, int count, double price)
+            string model, uint count, double price)
         {
             Name_of_carrier = name_of_carrier;
             Name_of_manufacturer = name_of_manufacturer;
@@ -26,7 +26,6 @@ namespace Price_list
 
         public virtual void Print()
         {
-            Console.WriteLine("--------------------");
             Console.WriteLine("Name of carrier: " + Name_of_carrier);
             Console.WriteLine("Name of manufacturer " + Name_of_manufacturer);
             Console.WriteLine("Model: " + Model);
@@ -61,7 +60,7 @@ namespace Price_list
             set { this.model = value; }
         }
 
-        public int Count
+        public uint Count
         {
             get { return count; }
             set { this.count = value; }

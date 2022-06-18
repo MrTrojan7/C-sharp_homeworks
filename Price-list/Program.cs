@@ -11,6 +11,8 @@ namespace Price_list
         static void Main()
         {
             Console.WriteLine("Begin program");
+            HDD a = new HDD();
+            a.Print();
         }
     }
 }
