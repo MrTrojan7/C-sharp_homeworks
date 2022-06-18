@@ -17,11 +17,11 @@ namespace Price_list
         public Memory_carrier(string name_of_carrier, string name_of_manufacturer, 
             string model, uint count, double price)
         {
-            Name_of_carrier = name_of_carrier;
-            Name_of_manufacturer = name_of_manufacturer;
-            Model = model;
-            Count = count;
-            Price = price;
+            this.Name_of_carrier = name_of_carrier;
+            this.Name_of_manufacturer = name_of_manufacturer;
+            this.Model = model;
+            this.Count = count;
+            this.Price = price;
         }
 
         public virtual void Print()

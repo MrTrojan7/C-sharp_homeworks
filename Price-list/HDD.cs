@@ -22,6 +22,7 @@ namespace Price_list
 
         public HDD() : this("TRON", "Kingston", "F256", 5, 520.10, 384, 256) { }
 
+        public HDD(HDD hdd) : this(hdd.Name_of_carrier, hdd.Name_of_manufacturer, hdd.Model, hdd.Count, hdd.Price, hdd.Speed_usb, hdd.Capacity) { }
         public override void Print()
         {
             Console.WriteLine("Type: HDD");

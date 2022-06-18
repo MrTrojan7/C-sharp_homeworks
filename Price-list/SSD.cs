@@ -22,6 +22,7 @@ namespace Price_list
 
         public SSD() : this("SeaGate", "Sillicon Power", "G512", 7, 1299.90, 4096, 1024) { }
 
+        public SSD(SSD ssd) : this(ssd.Name_of_carrier, ssd.Name_of_manufacturer, ssd.Model, ssd.Count, ssd.Price, ssd.Speed_usb, ssd.Capacity) { }
         public override void Print()
         {
             Console.WriteLine("Type: SSD");

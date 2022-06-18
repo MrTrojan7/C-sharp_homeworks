@@ -23,6 +23,9 @@ namespace Price_list
 
         public DVD() : this("BlueRayVision", "Data Life", "RW-4.7", 10, 19.90, 5200, 1700) { }
 
+        public DVD(DVD dvd) 
+            : this(dvd.Name_of_carrier, dvd.Name_of_manufacturer, dvd.Model, dvd.Count, dvd.Price, dvd.Reading_speed, dvd.Writing_speed) { }
+
         public override void Print()
         {
             Console.WriteLine("Type: DVD");
