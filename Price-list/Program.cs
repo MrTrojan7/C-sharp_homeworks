@@ -12,7 +12,11 @@ namespace Price_list
         {
             Console.WriteLine("Begin program");
             HDD a = new HDD();
-            a.Print();
+            //a.Print();
+            Memory_carrier b = new SSD();
+            //b.Print();
+            Memory_carrier c = new DVD();
+            c.Print();
         }
     }
 }
