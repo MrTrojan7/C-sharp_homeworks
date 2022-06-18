@@ -42,5 +42,17 @@ namespace Price_list
             get { return writing_speed; }
             set { this.writing_speed = value; }
         }
+
+        public override void DownloadFile()
+        {
+            //base.DownloadFile();
+            Console.Write("Download from DVD");
+        }
+
+        public override void SaveInFile()
+        {
+            //base.SaveInFile();
+            Console.Write("Save in DVD");
+        }
     }
 }

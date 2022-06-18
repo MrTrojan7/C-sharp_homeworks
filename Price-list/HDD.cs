@@ -41,5 +41,17 @@ namespace Price_list
             get { return capacity; }
             set { this.capacity = value; }
         }
+
+        public override void DownloadFile()
+        {
+            //base.DownloadFile();
+            Console.Write("Download from HDD");
+        }
+
+        public override void SaveInFile()
+        {
+            //base.SaveInFile();
+            Console.Write("Save in HDD");
+        }
     }
 }
