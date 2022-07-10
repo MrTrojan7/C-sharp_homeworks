@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Generalization</name>
+    </assembly>
+    <members>
+        <member name="T:Generalization.Point`1">
+            <summary>
+            Generalized class Point <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">type</typeparam>
+        </member>
+        <member name="T:Generalization.PrintArray">
+            <summary>
+            Print_Array<![CDATA[<T>]]>
+            Print array in console
+            </summary>
+        </member>
+        <member name="M:Generalization.PrintArray.Print_Array``1(``0[]@)">
+            <summary>
+            Static method
+            </summary>
+            <typeparam name="T">generalization type</typeparam>
+            <param name="arr">array of generalization type</param>
+        </member>
+    </members>
+</doc>
