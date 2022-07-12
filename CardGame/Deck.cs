@@ -63,9 +63,11 @@ namespace CardGame
         }
         public Card GetCard()
         {
-            Card card = cards[cards.Count - 1];
-            cards.RemoveAt(cards.Count - 1);
             return cards[cards.Count - 1];
+        }
+        public void RemoveCard()
+        {
+            cards.RemoveAt(cards.Count - 1);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace CardGame
         /// get size of deck
         /// </summary>
         /// <returns>return int size</returns>
-        public int GetSize()
+        public int GetCountOfCards()
         {
             return playerCard.Count;
         }
