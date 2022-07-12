@@ -23,7 +23,7 @@ namespace CardGame
         
         public void ShowCard()
         {
-            Console.Write("< " + this.value + this.type + " >");
+            Console.Write("|" + this.value + this.type + "| ");
         }
         
         public int Power

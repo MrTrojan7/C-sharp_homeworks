@@ -12,7 +12,13 @@ namespace CardGame
     {
         public static void Main()
         {
-
+            //Game game = new Game();
+            //game.PlayGame();
+            Deck a = new Deck();
+            a.ShowDeck();
+            Deck b = new Deck();
+            a.ShowDeck();
+            b.ShowDeck();
         }
     }
 }
