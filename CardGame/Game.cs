@@ -7,28 +7,26 @@ using System.Threading.Tasks;
 namespace CardGame
 {
     /// <summary>
-    /// Класс описывающий простую игру в карты
+    /// Class of simple card game
     /// </summary>
     class Game
     {
         /// <summary>
-        /// Поля класса
+        /// Fields of class
         /// </summary>
         public delegate void KeyDelegate();
-        public event KeyDelegate KeyPress; 
-        private List<Card> cards;    
+        public event KeyDelegate KeyPress;    
         private Deck deck_of_game;
-        private List<Player> players; 
-        //private int count_of_players;
-        private static Random random = new Random();
+        private List<Player> players;
 
         /// <summary>
-        /// Конструктор по умолчанию создает колоду из 54 кард и 2 игрока
+        /// Default constructor (create 2 players)
         /// </summary>
         public Game() : this(2) { }
 
         /// <summary>
-        /// Параметризированный конструктор (в качестве параметра передаётся колличество игроков)
+        /// Constructor with params (count of players and 52 cards)
+        /// <param name="count_of_players">Count of players (min = 2)</param>
         /// </summary>
         public Game(int count_of_players)
         {
@@ -42,22 +40,22 @@ namespace CardGame
         }
 
         /// <summary>
-        /// Специальный метод для раздачи карт игрокам
+        /// Distribution cards to players
         /// </summary>
         private void GiveCards()
         {
-            for (int i = 0; i < players.Count(); i++)
-            {
-                for (int j = 0; j < 54 / players.Count(); j++)
-                {
-                    players[i].AddCard(deck_of_game.GetCard());
-                    deck_of_game.RemoveCard();
-                }
+            int j = 0;
+            for (int i = 0; i < 52; i++)
+            { 
+                players[j].AddCard(deck_of_game.GetCard());
+                deck_of_game.RemoveCard();
+                ++j;
+                if(j == players.Count)
+                    j = 0;
             }
         }
-
         /// <summary>
-        /// показ карт игроков
+        /// Show player's cards
         /// </summary>
         private void ShowPlayersCard()
         {
@@ -68,20 +66,24 @@ namespace CardGame
             }
         }
         /// <summary>
-        /// Метод для розыграша карт.
-        /// Игроки сравнивают первые карты
-        /// У кого значение карты больше - тот и забирает карты и кладет их в конец колоды
+        /// Method responsible for 1 round
         /// </summary>
         private void Round()
         {
-            List<Card> temp_deck_of_round = new List<Card>();  //создание временного хранилища сравниваемых карт
-            int temp_index = 0;
-            int temp_power = 0;
-            for (int i = 0; i < players.Count; i++)
+            /// <remarks> Creating a temporary storage of round cards </remarks>
+            List<Card> temp_deck_of_round = new List<Card>();
+            int temp_index = 0; // index of most power
+            int temp_power = 0; // most power (for search and compare)
+            /// <remarks>
+            /// Show first player's cards 
+            /// Transfer cards to the temporary store and determining the strongest card
+            /// </remarks>
+            for (int i = 0; i < players.Count; i++) 
             {
                 temp_deck_of_round.Add(players[i].GetFirstCard());
                 Console.Write("Player # " + (i + 1) + " put the card: ");
                 temp_deck_of_round[i].ShowCard();
+                Console.WriteLine();
                 if (players[i].GetFirstCard().Power > temp_power)
                 {
                     temp_index = i;
@@ -89,25 +91,30 @@ namespace CardGame
                 }
                 players[i].RemoveFirst();
             }
-            Console.WriteLine("Player # " + temp_index + " is winner in this round");
-            for (int i = 0; i < players.Count; i++)
+            /// <remarks>// Show winner </remarks>
+            Console.WriteLine("Player # " + (temp_index + 1) + " is winner in this round");
+            for (int i = 0; i < players.Count; i++) // Add cards to winner
             {
                 players[temp_index].AddCard(temp_deck_of_round[i]);
             }
+            /// <remarks>
+            /// this action is specially brought here,
+            /// because if it transfer to the first cycle in this method
+            /// player will be removed BEFORE the end of the round
+            /// </remarks>
             for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].GetCountOfCards() == 0)
                 {
                     players.RemoveAt(i);
-                    Console.WriteLine("Player # " + i + " is empty!");
-                    i = 0;
+                    Console.WriteLine("Player # " + (i + 1) + " is empty!");
+                    i = 0; // crutch
                 }
             }
-            
         }
 
         /// <summary>
-        /// Метод, который начинает игру
+        /// Start the game
         /// </summary>
         public void PlayGame()
         {
@@ -115,30 +122,39 @@ namespace CardGame
             Console.WriteLine("You just started a new card game");
             Console.WriteLine("Count of players: " + players.Count);
             Console.WriteLine("What do you want?");
+            ///<summary> Cycle of game </summary>
             while (true)
             {
                 Console.WriteLine("1 - Show Players cards");
                 Console.WriteLine("2 - Make a round");
                 Console.WriteLine("ESC - EXIT the Game");
-                ConsoleKeyInfo key = Console.ReadKey(true); // переменная для реагирования на нажатие
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                /// <remarks> Show player's cards </remarks>
                 if (key.Key == ConsoleKey.D1)
                 {
                     ShowPlayersCard();
                 }
+                /// <remarks> Play 1 round </remarks>
                 if (key.Key == ConsoleKey.D2)
                 {
                     Round();
                 }
+                /// <remarks> End game </remarks>
                 if (key.Key == ConsoleKey.Escape)
                 {
                     Console.WriteLine("\nHave a good day!\n");
                     break;
                 }
+                /// <remarks>
+                /// Determination of the winner
+                /// End game
+                /// </remarks>
                 if (players.Count == 1)
                 {
-                    Console.WriteLine("\nPlayer # " + players.Count + " is winner!\n");
+                    Console.WriteLine("\nPlayer # " + (players.Count + 1) + " is winner!\n");
                     break;
                 }
+                /// <remarks> Incorrect pressing </remarks>
                 KeyPress?.Invoke();
             }
         }

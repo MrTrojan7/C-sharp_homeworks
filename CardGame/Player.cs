@@ -11,6 +11,10 @@ namespace CardGame
     /// </summary>
     class Player
     {
+        /// <summary>
+        /// Field of class
+        /// <param name="playerCard">Deck of player</param>
+        /// </summary>
         private List<Card> playerCard;
 
         /// <summary>
