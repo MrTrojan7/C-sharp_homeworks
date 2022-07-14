@@ -30,6 +30,7 @@ namespace CardGame
         /// </summary>
         public Game(int count_of_players)
         {
+            IsCorrectCountOfPlayers(count_of_players);
             deck_of_game = new Deck();
             players = new List<Player>(count_of_players); 
             for (int i = 0; i < count_of_players; i++)
@@ -103,13 +104,15 @@ namespace CardGame
             /// because if it transfer to the first cycle in this method
             /// player will be removed BEFORE the end of the round
             /// </remarks>
+            int temp_index_of_remove = 0; // for correct print number of removed players (if in 1 round > 1 removed player)
             for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].GetCountOfCards() == 0)
                 {
                     players.RemoveAt(i);
-                    Console.WriteLine("Player # " + (i + 1) + " is empty!");
-                    i = 0; // crutch
+                    Console.WriteLine("Player # " + (i + 1 + temp_index_of_remove) + " is empty!");
+                    i = 0; 
+                    temp_index_of_remove += 1;
                 }
             }
         }
@@ -157,6 +160,21 @@ namespace CardGame
                 }
                 /// <remarks> Incorrect pressing </remarks>
                 KeyPress?.Invoke();
+            }
+        }
+        private void IsCorrectCountOfPlayers(int count_of_players)
+        {
+            try
+            {
+                if (count_of_players < 2)
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Incorrect count of players ( < 2)");
+                Environment.Exit(0);
             }
         }
     }
