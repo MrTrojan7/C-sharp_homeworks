@@ -40,7 +40,8 @@ namespace CardGame
         }
 
         /// <summary>
-        /// Distribution cards to players
+        /// Distribution of cards to players. 
+        /// If the number of players is not a multiple of the number of cards - deal one card to each player until the deck runs out
         /// </summary>
         private void GiveCards()
         {
