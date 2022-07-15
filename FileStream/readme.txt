@@ -31,6 +31,12 @@ https://docs.microsoft.com/ru-ru/dotnet/api/system.text.encoding?view=net-6.0
 
 3) using all references on task 2 and matheial from pairs
 using static variables (+ add Dictionary for save length all files of certain extension
+recursion algorithm of search all files in all directories (in try catch - for return from function,
+when the files run out)
 FileSecurity - for access to file
 Sorted list - for sorted results of search
 https://docs.microsoft.com/ru-ru/dotnet/api/system.io.fileinfo.length?view=net-6.0
+
+
+
+in future i want to modified this algorithm without SortedList (using 2 Dictionaries)
