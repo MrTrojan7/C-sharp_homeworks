@@ -29,4 +29,8 @@ https://docs.microsoft.com/ru-ru/dotnet/api/system.io.streamreader.-ctor?view=ne
 https://docs.microsoft.com/ru-ru/dotnet/api/system.text.encoding?view=net-6.0
 
 
-3) 
+3) using all references on task 2 and matheial from pairs
+using static variables (+ add Dictionary for save length all files of certain extension
+FileSecurity - for access to file
+Sorted list - for sorted results of search
+https://docs.microsoft.com/ru-ru/dotnet/api/system.io.fileinfo.length?view=net-6.0
