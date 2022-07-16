@@ -39,7 +39,7 @@ namespace hw_1
                     buttons[i, j].Width = 50;
                     buttons[i, j].BackColor = RandomColor();
                     toolTip1.SetToolTip(buttons[i, j], "my_button " + i + j);
-                    //buttons[i, j].Click += buttons[i, j].ControlRemoved()
+                    buttons[i, j].Click += RemoveButton;
                     this.Controls.Add(buttons[i, j]);
                 }
             }
@@ -52,6 +52,13 @@ namespace hw_1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private void RemoveButton(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+
+            button.Visible = false;
+            this.Controls.Remove(button);
         }
     }
 }
