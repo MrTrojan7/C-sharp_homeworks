@@ -37,6 +37,7 @@ namespace hw_1
                     buttons[i, j].Size = new Size(40, 40);
                     buttons[i, j].Height = 50;
                     buttons[i, j].Width = 50;
+                    buttons[i, j].Text = "btn " + i + "." + j;
                     buttons[i, j].BackColor = RandomColor();
                     toolTip1.SetToolTip(buttons[i, j], "my_button " + i + j);
                     buttons[i, j].Click += RemoveButton;
