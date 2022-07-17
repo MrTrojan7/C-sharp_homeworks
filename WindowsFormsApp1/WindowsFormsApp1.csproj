@@ -52,10 +52,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="task1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.cs">
+    <Compile Include="task2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
