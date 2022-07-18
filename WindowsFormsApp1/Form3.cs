@@ -5,32 +5,25 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace WindowsFormsApp1
 {
     public partial class Form3 : Form
     {
-        // создаём таймер
-        //private static Timer vTimer = new Timer();
-        private System.Windows.Forms.Label labelTime;
-        // Обработчик тика для таймера
-        private void ShowTime(object vObj, EventArgs e)
-        {
-            // преобразование к строке
-            labelTime.Text = DateTime.Now.ToLongTimeString();
-        }
+        private Button button;
+        Point pnt;
 
         public Form3()
         {
             InitializeComponent();
-            // преобразование к строке
-            //labelTime.Text = DateTime.Now.ToLongTimeString();
-            //// закрепление обработчика
-            //vTimer.Tick += new EventHandler(ShowTime);
-            //// установка интервала времени
-            //vTimer.Interval = 500;
-            //// стартуем таймер
-            //vTimer.Start();
+            
+            while (true)
+            {
+                this.button.Location = pnt;
+                pnt.X += 10;
+                Thread.Sleep(200);
+            }
         }
         private void InitializeComponent()
         {
@@ -41,6 +34,17 @@ namespace WindowsFormsApp1
             this.Name = nameof(Form3);
             this.Text = "Рисование кнопками v2";
             this.ResumeLayout(false);
+            this.button = new Button();
+            this.button.Height = 40;
+            pnt = new Point(20, 50);
+            this.button.Location = pnt;
+            this.button.Name = "button1";
+            this.button.Size = new Size(75, 23);
+            this.button.TabIndex = 0;
+            this.button.Text = "button1";
+            this.button.Width = 100;
+            this.button.Parent = this;
+            this.button.UseVisualStyleBackColor = true;
         }
     }
 }
