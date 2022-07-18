@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace WindowsForms_App1
 {
-    public class Form2 : Form
+    public partial class Form1 : Form
     {
         private const int maxCount = 256;
         private int it = 0;
@@ -25,9 +25,9 @@ namespace WindowsForms_App1
         private int flag_create_wnd = 0;
         private IContainer components = (IContainer)null;
 
-        public Form2() => this.InitializeComponent();
+        public Form1() => this.InitializeComponent();
 
-        private void Form2_MouseDown(object sender, MouseEventArgs e)
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             this.flag_lbtn_down = 1;
             this.x_mouse_down = e.X;
@@ -36,7 +36,7 @@ namespace WindowsForms_App1
             this.y = e.Y;
         }
 
-        private void Form2_MouseMove(object sender, MouseEventArgs e)
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             this.x1 = e.X;
             this.y1 = e.Y;
@@ -85,7 +85,7 @@ namespace WindowsForms_App1
             }
         }
 
-        private void Form2_MouseUp(object sender, MouseEventArgs e)
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             this.flag_lbtn_down = 0;
             this.flag_create_wnd = 0;
@@ -139,11 +139,11 @@ namespace WindowsForms_App1
             this.AutoScaleDimensions = new SizeF(6f, 13f);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(705, 507);
-            this.Name = nameof(Form2);
+            this.Name = nameof(Form1);
             this.Text = "Рисование кнопками";
-            this.MouseDown += new MouseEventHandler(this.Form2_MouseDown);
-            this.MouseMove += new MouseEventHandler(this.Form2_MouseMove);
-            this.MouseUp += new MouseEventHandler(this.Form2_MouseUp);
+            this.MouseDown += new MouseEventHandler(this.Form1_MouseDown);
+            this.MouseMove += new MouseEventHandler(this.Form1_MouseMove);
+            this.MouseUp += new MouseEventHandler(this.Form1_MouseUp);
             this.ResumeLayout(false);
         }
     }

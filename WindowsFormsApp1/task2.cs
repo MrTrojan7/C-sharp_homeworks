@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace WindowsForms_App1
 {
-    public class Form3 : Form
+    public partial class Form2 : Form
     {
         private int x_btn;
         private int y_btn;
@@ -22,7 +22,7 @@ namespace WindowsForms_App1
         private IContainer components = (IContainer)null;
         private Button button1;
 
-        public Form3()
+        public Form2()
         {
             this.InitializeComponent();
             this.x_btn = this.button1.Location.X;
@@ -35,7 +35,7 @@ namespace WindowsForms_App1
             this.randY = this.sizeY - this.button1.Height - 20;
         }
 
-        private void Form3_MouseMove(object sender, MouseEventArgs e)
+        private void Form2_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.X >= this.x_btn - 1 && e.X <= this.x_btn + this.width_btn && e.Y >= this.y_btn - 1 && e.Y <= this.y_btn + this.height_btn)
             {
@@ -74,9 +74,9 @@ namespace WindowsForms_App1
             this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new Size(696, 516);
             this.Controls.Add((Control)this.button1);
-            this.Name = nameof(Form3);
-            this.Text = nameof(Form3);
-            this.MouseMove += new MouseEventHandler(this.Form3_MouseMove);
+            this.Name = nameof(Form2);
+            this.Text = nameof(Form2);
+            this.MouseMove += new MouseEventHandler(this.Form2_MouseMove);
             this.ResumeLayout(false);
         }
     }
