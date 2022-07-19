@@ -31,14 +31,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.authorization = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.LoginPicture = new System.Windows.Forms.PictureBox();
+            this.PasswordPicture = new System.Windows.Forms.PictureBox();
             this.LoginField = new System.Windows.Forms.TextBox();
             this.PassField = new System.Windows.Forms.TextBox();
             this.LogIn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PasswordPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -78,25 +78,25 @@
             this.authorization.Text = "Authorization";
             this.authorization.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // LoginPicture
             // 
-            this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources._984119_avatar_male_man_person_user_icon;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 94);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.LoginPicture.Image = global::WindowsFormsApp1.Properties.Resources._984119_avatar_male_man_person_user_icon;
+            this.LoginPicture.Location = new System.Drawing.Point(12, 94);
+            this.LoginPicture.Name = "LoginPicture";
+            this.LoginPicture.Size = new System.Drawing.Size(64, 64);
+            this.LoginPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LoginPicture.TabIndex = 2;
+            this.LoginPicture.TabStop = false;
             // 
-            // pictureBox2
+            // PasswordPicture
             // 
-            this.pictureBox2.Image = global::WindowsFormsApp1.Properties.Resources._120_key_password_icon;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 164);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.PasswordPicture.Image = global::WindowsFormsApp1.Properties.Resources._120_key_password_icon;
+            this.PasswordPicture.Location = new System.Drawing.Point(12, 164);
+            this.PasswordPicture.Name = "PasswordPicture";
+            this.PasswordPicture.Size = new System.Drawing.Size(64, 64);
+            this.PasswordPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PasswordPicture.TabIndex = 3;
+            this.PasswordPicture.TabStop = false;
             // 
             // LoginField
             // 
@@ -141,8 +141,8 @@
             this.Controls.Add(this.LogIn);
             this.Controls.Add(this.PassField);
             this.Controls.Add(this.LoginField);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PasswordPicture);
+            this.Controls.Add(this.LoginPicture);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TestForm";
@@ -151,8 +151,8 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TestForm_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PasswordPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,8 +163,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label authorization;
         private System.Windows.Forms.Label closeButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox LoginPicture;
+        private System.Windows.Forms.PictureBox PasswordPicture;
         private System.Windows.Forms.TextBox LoginField;
         private System.Windows.Forms.TextBox PassField;
         private System.Windows.Forms.Button LogIn;

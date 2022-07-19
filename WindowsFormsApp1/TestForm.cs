@@ -12,6 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class TestForm : Form
     {
+        Point lastPoint;
         public TestForm()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace WindowsFormsApp1
         {
             closeButton.ForeColor = Color.Black;
         }
-        Point lastPoint;
+
         private void TestForm_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
