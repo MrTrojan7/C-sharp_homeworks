@@ -23,5 +23,29 @@ namespace WindowsFormsApp1
         {
             this.Close();
         }
+
+        private void closeButton_MouseEnter(object sender, EventArgs e)
+        {
+            closeButton.ForeColor = Color.Green;
+        }
+
+        private void closeButton_MouseLeave(object sender, EventArgs e)
+        {
+            closeButton.ForeColor = Color.Black;
+        }
+        Point lastPoint;
+        private void TestForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lastPoint.X;
+                this.Top += e.Y - lastPoint.Y;
+            }
+        }
+
+        private void TestForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
     }
 }

@@ -63,6 +63,8 @@
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "X";
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.MouseEnter += new System.EventHandler(this.closeButton_MouseEnter);
+            this.closeButton.MouseLeave += new System.EventHandler(this.closeButton_MouseLeave);
             // 
             // authorization
             // 
@@ -145,6 +147,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TestForm";
             this.Text = "TestForm";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TestForm_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TestForm_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
