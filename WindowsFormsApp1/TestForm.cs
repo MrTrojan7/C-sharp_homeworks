@@ -15,6 +15,13 @@ namespace WindowsFormsApp1
         public TestForm()
         {
             InitializeComponent();
+            this.PassField.AutoSize = false;
+            this.PassField.Size = new Size(this.PassField.Size.Width, 40);
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
