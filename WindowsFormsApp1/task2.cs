@@ -35,6 +35,7 @@ namespace WindowsForms_App1
             this.randY = this.sizeY - this.button1.Height - 20;
         }
 
+        public System.Drawing.Image Image { get; set; }
         private void Form2_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.X >= this.x_btn - 1 && e.X <= this.x_btn + this.width_btn && e.Y >= this.y_btn - 1 && e.Y <= this.y_btn + this.height_btn)
@@ -62,6 +63,7 @@ namespace WindowsForms_App1
         private void InitializeComponent()
         {
             this.button1 = new Button();
+            //this.button1.Image = Image.FromFile(@"E:\Step\.NET\C#\WindowsFormsApp1\images\87950_fly_icon.bmp");
             this.SuspendLayout();
             this.button1.Location = new Point(262, 172);
             this.button1.Name = "button1";

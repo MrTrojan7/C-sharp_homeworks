@@ -125,7 +125,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="images\87950_fly_icon.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="images\120_key_password_icon.png" />
   </ItemGroup>
