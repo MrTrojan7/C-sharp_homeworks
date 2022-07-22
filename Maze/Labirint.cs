@@ -14,6 +14,8 @@ namespace Maze
 
         public static Random r = new Random();
         public Form parent;
+        public int smileX = 0;
+        public int smileY = 2;
 
         public Labirint(Form parent, int width, int height)
         {
@@ -29,9 +31,6 @@ namespace Maze
 
         private void Generate()
         {
-            int smileX = 0;
-            int smileY = 2;
-
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
@@ -75,17 +74,20 @@ namespace Maze
                     }
                     
                     maze[y, x] = new MazeObject(current);
-                    images[y, x] = new PictureBox();
-                    images[y, x].Location = new Point(x * maze[y, x].width, y * maze[y, x].height);
-                    images[y, x].Parent = parent;
-                    images[y, x].Width = maze[y, x].width;
-                    images[y, x].Height = maze[y, x].height;
-                    images[y, x].BackgroundImage = maze[y, x].texture;
-                    images[y, x].Visible = false;
+                    InitMazeObject(y, x);
                 }
             }
         }
-
+        public void InitMazeObject(int y, int x)
+        {
+            images[y, x] = new PictureBox();
+            images[y, x].Location = new Point(x * maze[y, x].width, y * maze[y, x].height);
+            images[y, x].Parent = parent;
+            images[y, x].Width = maze[y, x].width;
+            images[y, x].Height = maze[y, x].height;
+            images[y, x].BackgroundImage = maze[y, x].texture;
+            images[y, x].Visible = false;
+        }
         public void Show()
         {
             for (int y = 0; y < height; y++)
