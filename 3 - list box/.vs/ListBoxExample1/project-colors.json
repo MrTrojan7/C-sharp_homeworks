@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d6cd4abb-fd2f-432e-8bc5-a99a35ced6f1": {
+      "ProjectGuid": "d6cd4abb-fd2f-432e-8bc5-a99a35ced6f1",
+      "DisplayName": "ListBoxExample1",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
