@@ -5,13 +5,14 @@ namespace Maze
 {
     public partial class Form1 : Form
     {
-        Labirint l;
+        private Labirint l;
+        private int sizeX;
+        private int sizeY;
         public Form1()
         {
             InitializeComponent();
             Options();
             StartGame();
-            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
         public void Options()
@@ -20,31 +21,37 @@ namespace Maze
 
             BackColor = Color.FromArgb(255, 92, 118, 137);
 
-            int sizeX = 50;
-            int sizeY = 20;
+            this.sizeX = 40 + 10; // wight (+ 10 for info in right part of the window)
+            this.sizeY = 40; // height
 
-            Width = sizeX * 16 + 16;
-            Height = sizeY * 16 + 40;
+            this.Width = sizeX * 16 + 16;
+            this.Height = sizeY * 16 + 40;
             StartPosition = FormStartPosition.CenterScreen;
         }
 
         public void StartGame() 
         {
-            l = new Labirint(this, 40, 20);
-            l.Show();
+            l = new Labirint(this, (sizeX - 10), sizeY);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Right)
+            switch (e.KeyCode)
             {
-                this.l.maze[l.smileY, l.smileX] = new MazeObject(MazeObject.MazeObjectType.HALL);
-                this.l.InitMazeObject(l.smileY, l.smileX);
-                this.l.images[l.smileY, l.smileX].Visible = true;
-                this.l.maze[l.smileY, ++l.smileX] = new MazeObject(MazeObject.MazeObjectType.CHAR);
-                this.l.InitMazeObject(l.smileY, l.smileX);
-                this.l.images[l.smileY, l.smileX].Visible = true;
-                //this.l.Show();
+                case Keys.Left:
+                    l.MovingPers(0, -1);
+                    break;
+                case Keys.Up:
+                    l.MovingPers(-1, 0);
+                    break;
+                case Keys.Right:
+                    l.MovingPers(0, 1);
+                    break;
+                case Keys.Down:
+                    l.MovingPers(1, 0);
+                    break;
+                default:
+                    break;
             }
         }
     }

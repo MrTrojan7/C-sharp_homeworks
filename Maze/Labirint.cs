@@ -6,25 +6,25 @@ namespace Maze
 {
     class Labirint
     {
-        public int height; // высота лабиринта (количество строк)
-        public int width; // ширина лабиринта (количество столбцов в каждой строке)
+        private int height; // высота лабиринта (количество строк)
+        private int width; // ширина лабиринта (количество столбцов в каждой строке)
 
-        public MazeObject[,] maze;
-        public PictureBox[,] images;
+        private MazeObject[,] maze;
+        private Label[,] lbl;
+        //public PictureBox[,] images;
 
-        public static Random r = new Random();
-        public Form parent;
-        public int smileX = 0;
-        public int smileY = 2;
+        private static Random r = new Random();
+        private Form parent;
+        public int coordX = 0;
+        public int coordY = 2;
 
         public Labirint(Form parent, int width, int height)
         {
             this.width = width;
             this.height = height;
             this.parent = parent;
-
             maze = new MazeObject[height, width];
-            images = new PictureBox[height, width];
+            lbl = new Label[height, width];
 
             Generate();
         }
@@ -43,14 +43,14 @@ namespace Maze
                         current = MazeObject.MazeObjectType.WALL;
                     }
 
-                    // в 1 случае из 250 - кладём денежку
-                    if (r.Next(250) == 0)
+                    // в 1 случае из 50 - кладём денежку
+                    if (r.Next(50) == 0)
                     {
                         current = MazeObject.MazeObjectType.MEDAL;
                     }
 
-                    // в 1 случае из 250 - размещаем врага
-                    if (r.Next(250) == 0)
+                    // в 1 случае из 150 - размещаем врага
+                    if (r.Next(150) == 0)
                     {
                         current = MazeObject.MazeObjectType.ENEMY;
                     }
@@ -62,41 +62,53 @@ namespace Maze
                     }
 
                     // наш персонажик
-                    if (x == smileX && y == smileY)
+                    if (x == coordX && y == coordY)
                     {
                         current = MazeObject.MazeObjectType.CHAR;
                     }
 
                     // есть выход, и соседняя ячейка справа всегда свободна
-                    if (x == smileX + 1 && y == smileY || x == width - 1 && y == height - 3)
+                    if (x == coordX + 1 && y == coordY || x == width - 1 && y == height - 3)
                     {
                         current = MazeObject.MazeObjectType.HALL;
                     }
-                    
+                    lbl[y, x] = new Label();
                     maze[y, x] = new MazeObject(current);
-                    InitMazeObject(y, x);
+                    InitObject(y, x);
                 }
             }
         }
-        public void InitMazeObject(int y, int x)
+
+        private void InitObject(int y, int x)
         {
-            images[y, x] = new PictureBox();
-            images[y, x].Location = new Point(x * maze[y, x].width, y * maze[y, x].height);
-            images[y, x].Parent = parent;
-            images[y, x].Width = maze[y, x].width;
-            images[y, x].Height = maze[y, x].height;
-            images[y, x].BackgroundImage = maze[y, x].texture;
-            images[y, x].Visible = false;
+            lbl[y, x].Location = new Point(x * 16, y * 16);
+            lbl[y, x].Parent = parent;
+            lbl[y, x].Width = 16;
+            lbl[y, x].Height = 16;
+            lbl[y, x].BackgroundImage = MazeObject.images[(int)maze[y, x].type];
+            lbl[y, x].Visible = true;
         }
-        public void Show()
+
+        public void MovingPers(int y, int x)
         {
-            for (int y = 0; y < height; y++)
+            if (!IsPossibleMoving(y, x))
             {
-                for (int x = 0; x < width; x++)
-                {
-                    images[y, x].Visible = true;
-                }
+                return;
             }
+            maze[coordY, coordX] = new MazeObject(MazeObject.MazeObjectType.HALL);
+            InitObject(coordY, coordX);
+            maze[(coordY += y), (coordX += x)] = new MazeObject(MazeObject.MazeObjectType.CHAR);
+            InitObject(coordY, coordX);
+        }
+
+        private bool IsPossibleMoving(int y, int x)
+        {
+            if (maze[(coordY + y), (coordY + x)].type == MazeObject.MazeObjectType.WALL || (coordY + y) < 0)
+            {
+                // bad WALL
+                return false;
+            }
+            return true;
         }
     }
 }
