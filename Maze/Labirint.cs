@@ -103,7 +103,7 @@ namespace Maze
 
         private bool IsPossibleMoving(int y, int x)
         {
-            if (maze[(coordY + y), (coordY + x)].type == MazeObject.MazeObjectType.WALL || (coordY + y) < 0)
+            if ((maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL) || (coordY + y) < 0)
             {
                 // bad WALL
                 return false;
