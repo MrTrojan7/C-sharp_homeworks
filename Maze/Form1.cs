@@ -22,7 +22,7 @@ namespace Maze
             BackColor = Color.FromArgb(255, 92, 118, 137);
 
             this.sizeX = 40 + 10; // wight (+ 10 for info in right part of the window)
-            this.sizeY = 40; // height
+            this.sizeY = 20; // height
 
             this.Width = sizeX * 16 + 16;
             this.Height = sizeY * 16 + 40;
@@ -50,8 +50,18 @@ namespace Maze
                 case Keys.Down:
                     l.MovingPers(1, 0);
                     break;
+                case Keys.Escape:
+                    if(MessageBox.Show("Exit application?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        System.Environment.Exit(0);
+                    break;
                 default:
                     break;
+
+            }
+            if (l.IsWin())
+            {
+                MessageBox.Show("Congratulations! You are winner!");
+                System.Environment.Exit(0);
             }
         }
     }

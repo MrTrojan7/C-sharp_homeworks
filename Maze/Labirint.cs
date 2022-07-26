@@ -105,10 +105,18 @@ namespace Maze
         {
             if ((maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL) || (coordY + y) < 0)
             {
-                // bad WALL
                 return false;
             }
             return true;
+        }
+
+        public bool IsWin()
+        {
+            if (MazeObject.MazeObjectType.CHAR == maze[height - 3, width - 1].type)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
