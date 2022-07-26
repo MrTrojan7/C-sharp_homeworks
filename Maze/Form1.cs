@@ -13,6 +13,7 @@ namespace Maze
             InitializeComponent();
             Options();
             StartGame();
+            Health();
         }
 
         public void Options()
@@ -26,6 +27,7 @@ namespace Maze
 
             this.Width = sizeX * 16 + 16;
             this.Height = sizeY * 16 + 40;
+            this.health.Location = new Point(this.Width - (this.Width / 7), this.Height / 4);
             StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -58,11 +60,17 @@ namespace Maze
                     break;
 
             }
+            Health();
             if (l.IsWin())
             {
                 MessageBox.Show("Congratulations! You are winner!");
                 System.Environment.Exit(0);
             }
+        }
+
+        private void Health()
+        {
+            this.health.Text = l._health.ToString();
         }
     }
 }

@@ -8,13 +8,14 @@ namespace Maze
     {
         private int height; // высота лабиринта (количество строк)
         private int width; // ширина лабиринта (количество столбцов в каждой строке)
-
         private MazeObject[,] maze;
         private Label[,] lbl;
-        //public PictureBox[,] images;
-
         private static Random r = new Random();
         private Form parent;
+        private int money_in_maze = 0;
+
+        public short _health = 100;
+        public int player_money = 0;
         public int coordX = 0;
         public int coordY = 2;
 
@@ -47,12 +48,19 @@ namespace Maze
                     if (r.Next(50) == 0)
                     {
                         current = MazeObject.MazeObjectType.MEDAL;
+                        ++money_in_maze;
                     }
 
                     // в 1 случае из 150 - размещаем врага
-                    if (r.Next(150) == 0)
+                    if (r.Next(75) == 0)
                     {
                         current = MazeObject.MazeObjectType.ENEMY;
+                    }
+
+                    // в 1 случае из 200 - кладём аптечку
+                    if (r.Next(200) == 0)
+                    {
+                        current = MazeObject.MazeObjectType.FIRST_AID_KIT;
                     }
 
                     // стены по периметру обязательны
@@ -97,22 +105,50 @@ namespace Maze
             }
             maze[coordY, coordX] = new MazeObject(MazeObject.MazeObjectType.HALL);
             InitObject(coordY, coordX);
+            MovingToFIRST_AID_KIT(y, x);
+            MovingToENEMY(y, x);
             maze[(coordY += y), (coordX += x)] = new MazeObject(MazeObject.MazeObjectType.CHAR);
             InitObject(coordY, coordX);
         }
 
         private bool IsPossibleMoving(int y, int x)
         {
-            if ((maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL) || (coordY + y) < 0)
+            if ((coordX + x) < 0 || (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL))
             {
                 return false;
             }
             return true;
         }
 
+        private void MovingToFIRST_AID_KIT(int y, int x)
+        {
+            if (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.FIRST_AID_KIT)
+            {
+                _health += (short)r.Next(15, 25);
+                if (_health > 100)
+                {
+                    _health = 100;
+                }
+            }
+        }
+
+        private void MovingToENEMY(int y, int x)
+        {
+            if (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.ENEMY)
+            {
+                _health -= (short)r.Next(15, 25);
+                if (_health <= 0)
+                {
+                    MessageBox.Show("GameOver");
+                    System.Environment.Exit(0);
+                }
+            }
+        }
+
         public bool IsWin()
         {
-            if (MazeObject.MazeObjectType.CHAR == maze[height - 3, width - 1].type)
+            if (maze[height - 3, width - 1].type == MazeObject.MazeObjectType.CHAR
+                || player_money == money_in_maze)
             {
                 return true;
             }

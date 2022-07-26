@@ -5,7 +5,7 @@ namespace Maze
 {
     class MazeObject
     {
-        public enum MazeObjectType { HALL, WALL, MEDAL, ENEMY, CHAR };
+        public enum MazeObjectType { HALL, WALL, MEDAL, ENEMY, CHAR, FIRST_AID_KIT };
 
         public static Bitmap[] images = 
             {
@@ -13,7 +13,8 @@ namespace Maze
                 new Bitmap(@"E:\Step\.NET\C#\Maze\pics\wall.png"),
                 new Bitmap(@"E:\Step\.NET\C#\Maze\pics\medal.png"),
                 new Bitmap(@"E:\Step\.NET\C#\Maze\pics\enemy.png"),
-                new Bitmap(@"E:\Step\.NET\C#\Maze\pics\player.png")
+                new Bitmap(@"E:\Step\.NET\C#\Maze\pics\player.png"),
+                new Bitmap(@"E:\Step\.NET\C#\Maze\pics\first_aid_kit.png")
             };
 
         public MazeObjectType type;
