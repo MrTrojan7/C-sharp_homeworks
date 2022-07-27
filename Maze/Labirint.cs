@@ -12,8 +12,9 @@ namespace Maze
         private Label[,] lbl;
         private static Random r = new Random();
         private Form parent;
-        private int[] countOFMazeObjects = new int[6];
+        private int[] countOFMazeObjects = new int[7];
 
+        public short timerFromHealthToCoffee = 0;
         public short _health = 100;
         public int energy = 500;
         public int player_money = 0;
@@ -50,14 +51,19 @@ namespace Maze
                         current = MazeObject.MazeObjectType.MONEY;
                     }
 
-                    // в 1 случае из 150 - размещаем врага
                     if (r.Next(75) == 0)
+                    {
+                        current = MazeObject.MazeObjectType.CUP_COFFEE;
+                    }
+
+                    // в 1 случае из 150 - размещаем врага
+                    if (r.Next(100) == 0)
                     {
                         current = MazeObject.MazeObjectType.ENEMY;
                     }
 
                     // в 1 случае из 200 - кладём аптечку
-                    if (r.Next(200) == 0)
+                    if (r.Next(150) == 0)
                     {
                         current = MazeObject.MazeObjectType.FIRST_AID_KIT;
                     }
@@ -94,8 +100,9 @@ namespace Maze
                         case MazeObject.MazeObjectType.ENEMY:
                             ++countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
                             break;
-                        //case MazeObject.MazeObjectType.CHAR:
-                        //    break;
+                        case MazeObject.MazeObjectType.CUP_COFFEE:
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.CUP_COFFEE];
+                            break;
                         case MazeObject.MazeObjectType.FIRST_AID_KIT:
                             ++countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
                             break;
@@ -126,13 +133,16 @@ namespace Maze
                 switch (maze[(coordY + y), (coordX + x)].type)
                 {
                     case MazeObject.MazeObjectType.MONEY:
-                        MovingToMONEY(y, x);
+                        MovingToMONEY();
                         break;
                     case MazeObject.MazeObjectType.ENEMY:
-                        MovingToENEMY(y, x);
+                        MovingToENEMY();
                         break;
                     case MazeObject.MazeObjectType.FIRST_AID_KIT:
-                        MovingToFIRST_AID_KIT(y, x);
+                        MovingToFIRST_AID_KIT();
+                        break;
+                    case MazeObject.MazeObjectType.CUP_COFFEE:
+                        MovingToCUP_COFFEE();
                         break;
                     default:
                         break;
@@ -155,6 +165,10 @@ namespace Maze
         private void UpdateEnergy()
         {
             --energy;
+            if (timerFromHealthToCoffee > 0)
+            {
+                --timerFromHealthToCoffee;
+            }
             if (energy == 0)
             {
                 MessageBox.Show("GameOver. Energy = 0");
@@ -162,16 +176,25 @@ namespace Maze
             }
         }
 
-        private void MovingToFIRST_AID_KIT(int y, int x)
+        private void MovingToCUP_COFFEE()
+        {
+            if (timerFromHealthToCoffee == 0)
+            {
+                energy += r.Next(20, 30);
+            }
+        }
+
+        private void MovingToFIRST_AID_KIT()
         {
             _health += (short)r.Next(15, 25);
+            timerFromHealthToCoffee = 10;
             if (_health > 100)
             {
                 _health = 100;
             }
         }
 
-        private void MovingToENEMY(int y, int x)
+        private void MovingToENEMY()
         {
             _health -= (short)r.Next(15, 25);
             if (_health <= 0)
@@ -182,7 +205,7 @@ namespace Maze
             }
         }
 
-        private void MovingToMONEY(int y, int x)
+        private void MovingToMONEY()
         {
             ++player_money;
             if (player_money == countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY])
