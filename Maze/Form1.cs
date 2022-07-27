@@ -22,11 +22,13 @@ namespace Maze
             BackColor = Color.FromArgb(255, 92, 118, 137);
 
             this.sizeX = 40 + 10; // wight (+ 10 for info in right part of the window)
-            this.sizeY = 20; // height
+            this.sizeY = 30; // height
 
             this.Width = sizeX * 16 + 16;
             this.Height = sizeY * 16 + 40;
             this.health.Location = new Point(this.Width - (this.Width / 7), this.Height / 4);
+            this.coins.Location = new Point(this.Width - (this.Width / 7), this.Height / 3);
+            this.energy.Location = new Point(this.Width - (this.Width / 7), this.Height / 2);
             StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -58,13 +60,15 @@ namespace Maze
                     break;
 
             }
-            UpdateHealth();
+            UpdateLabels();
             l.IsFoundExit();
         }
 
-        private void UpdateHealth()
+        private void UpdateLabels()
         {
             this.health.Text = l._health.ToString();
+            this.coins.Text = l.player_money.ToString();
+            this.energy.Text = l.energy.ToString();
         }
 
         private void IsWantExit()

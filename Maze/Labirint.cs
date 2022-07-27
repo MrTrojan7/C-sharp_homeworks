@@ -12,8 +12,10 @@ namespace Maze
         private Label[,] lbl;
         private static Random r = new Random();
         private Form parent;
+        private int[] countOFMazeObjects = new int[6];
 
         public short _health = 100;
+        public int energy = 500;
         public int player_money = 0;
         public int coordX = 0;
         public int coordY = 2;
@@ -81,21 +83,21 @@ namespace Maze
                     switch (current)
                     {
                         case MazeObject.MazeObjectType.HALL:
-                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.HALL];
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.HALL];
                             break;
                         case MazeObject.MazeObjectType.WALL:
-                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.WALL];
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.WALL];
                             break;
                         case MazeObject.MazeObjectType.MONEY:
-                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY];
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY];
                             break;
                         case MazeObject.MazeObjectType.ENEMY:
-                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
                             break;
                         //case MazeObject.MazeObjectType.CHAR:
                         //    break;
                         case MazeObject.MazeObjectType.FIRST_AID_KIT:
-                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
+                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
                             break;
                         default:
                             break;
@@ -137,6 +139,7 @@ namespace Maze
                 }
                 InitObject(coordY, coordX, MazeObject.MazeObjectType.HALL);
                 InitObject((coordY += y), (coordX += x), MazeObject.MazeObjectType.CHAR);
+                --energy;
             }
         }
 
@@ -172,7 +175,7 @@ namespace Maze
         private void MovingToMONEY(int y, int x)
         {
             ++player_money;
-            if (player_money == MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY])
+            if (player_money == countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY])
             {
                 MessageBox.Show("Congratulations! You have collected all coins!");
                 System.Environment.Exit(0);
