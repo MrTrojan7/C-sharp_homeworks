@@ -139,7 +139,7 @@ namespace Maze
                 }
                 InitObject(coordY, coordX, MazeObject.MazeObjectType.HALL);
                 InitObject((coordY += y), (coordX += x), MazeObject.MazeObjectType.CHAR);
-                --energy;
+                UpdateEnergy();
             }
         }
 
@@ -150,6 +150,16 @@ namespace Maze
                 return false;
             }
             return true;
+        }
+
+        private void UpdateEnergy()
+        {
+            --energy;
+            if (energy == 0)
+            {
+                MessageBox.Show("GameOver. Energy = 0");
+                System.Environment.Exit(0);
+            }
         }
 
         private void MovingToFIRST_AID_KIT(int y, int x)
