@@ -13,7 +13,6 @@ namespace Maze
             InitializeComponent();
             Options();
             StartGame();
-            Health();
         }
 
         public void Options()
@@ -53,24 +52,26 @@ namespace Maze
                     l.MovingPers(1, 0);
                     break;
                 case Keys.Escape:
-                    if(MessageBox.Show("Exit application?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        System.Environment.Exit(0);
+                    IsWantExit();
                     break;
                 default:
                     break;
 
             }
-            Health();
-            if (l.IsWin())
-            {
-                MessageBox.Show("Congratulations! You are winner!");
-                System.Environment.Exit(0);
-            }
+            UpdateHealth();
+            l.IsFoundExit();
         }
 
-        private void Health()
+        private void UpdateHealth()
         {
             this.health.Text = l._health.ToString();
         }
+
+        private void IsWantExit()
+        {
+            if (MessageBox.Show("Exit application?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                System.Environment.Exit(0);
+        }
+
     }
 }

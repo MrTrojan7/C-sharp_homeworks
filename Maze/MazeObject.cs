@@ -5,7 +5,8 @@ namespace Maze
 {
     class MazeObject
     {
-        public enum MazeObjectType { HALL, WALL, MEDAL, ENEMY, CHAR, FIRST_AID_KIT };
+        public enum MazeObjectType { HALL, WALL, MONEY, ENEMY, CHAR, FIRST_AID_KIT };
+        public static int[] countOFMazeObjects = new int[6];
 
         public static Bitmap[] images = 
             {

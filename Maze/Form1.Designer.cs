@@ -37,9 +37,9 @@
             this.health.ForeColor = System.Drawing.Color.Red;
             this.health.Location = new System.Drawing.Point(523, 191);
             this.health.Name = "health";
-            this.health.Size = new System.Drawing.Size(38, 13);
+            this.health.Size = new System.Drawing.Size(25, 13);
             this.health.TabIndex = 0;
-            this.health.Text = "Health";
+            this.health.Text = "100";
             // 
             // Form1
             // 

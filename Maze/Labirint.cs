@@ -12,7 +12,6 @@ namespace Maze
         private Label[,] lbl;
         private static Random r = new Random();
         private Form parent;
-        private int money_in_maze = 0;
 
         public short _health = 100;
         public int player_money = 0;
@@ -37,9 +36,8 @@ namespace Maze
                 for (int x = 0; x < width; x++)
                 {
                     MazeObject.MazeObjectType current = MazeObject.MazeObjectType.HALL;
-
                     // в 1 случае из 5 - ставим стену
-                    if (r.Next(5) == 0)
+                    if (r.Next(0, 5) == 0)
                     {
                         current = MazeObject.MazeObjectType.WALL;
                     }
@@ -47,8 +45,7 @@ namespace Maze
                     // в 1 случае из 50 - кладём денежку
                     if (r.Next(50) == 0)
                     {
-                        current = MazeObject.MazeObjectType.MEDAL;
-                        ++money_in_maze;
+                        current = MazeObject.MazeObjectType.MONEY;
                     }
 
                     // в 1 случае из 150 - размещаем врага
@@ -80,15 +77,38 @@ namespace Maze
                     {
                         current = MazeObject.MazeObjectType.HALL;
                     }
+
+                    switch (current)
+                    {
+                        case MazeObject.MazeObjectType.HALL:
+                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.HALL];
+                            break;
+                        case MazeObject.MazeObjectType.WALL:
+                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.WALL];
+                            break;
+                        case MazeObject.MazeObjectType.MONEY:
+                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY];
+                            break;
+                        case MazeObject.MazeObjectType.ENEMY:
+                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
+                            break;
+                        //case MazeObject.MazeObjectType.CHAR:
+                        //    break;
+                        case MazeObject.MazeObjectType.FIRST_AID_KIT:
+                            ++MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
+                            break;
+                        default:
+                            break;
+                    }
                     lbl[y, x] = new Label();
-                    maze[y, x] = new MazeObject(current);
-                    InitObject(y, x);
+                    InitObject(y, x, current);
                 }
             }
         }
 
-        private void InitObject(int y, int x)
+        private void InitObject(int y, int x, MazeObject.MazeObjectType mazeObject)
         {
+            maze[y, x] = new MazeObject(mazeObject);
             lbl[y, x].Location = new Point(x * 16, y * 16);
             lbl[y, x].Parent = parent;
             lbl[y, x].Width = 16;
@@ -99,16 +119,25 @@ namespace Maze
 
         public void MovingPers(int y, int x)
         {
-            if (!IsPossibleMoving(y, x))
+            if (IsPossibleMoving(y, x))
             {
-                return;
+                switch (maze[(coordY + y), (coordX + x)].type)
+                {
+                    case MazeObject.MazeObjectType.MONEY:
+                        MovingToMONEY(y, x);
+                        break;
+                    case MazeObject.MazeObjectType.ENEMY:
+                        MovingToENEMY(y, x);
+                        break;
+                    case MazeObject.MazeObjectType.FIRST_AID_KIT:
+                        MovingToFIRST_AID_KIT(y, x);
+                        break;
+                    default:
+                        break;
+                }
+                InitObject(coordY, coordX, MazeObject.MazeObjectType.HALL);
+                InitObject((coordY += y), (coordX += x), MazeObject.MazeObjectType.CHAR);
             }
-            maze[coordY, coordX] = new MazeObject(MazeObject.MazeObjectType.HALL);
-            InitObject(coordY, coordX);
-            MovingToFIRST_AID_KIT(y, x);
-            MovingToENEMY(y, x);
-            maze[(coordY += y), (coordX += x)] = new MazeObject(MazeObject.MazeObjectType.CHAR);
-            InitObject(coordY, coordX);
         }
 
         private bool IsPossibleMoving(int y, int x)
@@ -122,37 +151,41 @@ namespace Maze
 
         private void MovingToFIRST_AID_KIT(int y, int x)
         {
-            if (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.FIRST_AID_KIT)
+            _health += (short)r.Next(15, 25);
+            if (_health > 100)
             {
-                _health += (short)r.Next(15, 25);
-                if (_health > 100)
-                {
-                    _health = 100;
-                }
+                _health = 100;
             }
         }
 
         private void MovingToENEMY(int y, int x)
         {
-            if (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.ENEMY)
+            _health -= (short)r.Next(15, 25);
+            if (_health <= 0)
             {
-                _health -= (short)r.Next(15, 25);
-                if (_health <= 0)
-                {
-                    MessageBox.Show("GameOver");
-                    System.Environment.Exit(0);
-                }
+                _health = 0;
+                MessageBox.Show("GameOver. Health = 0");
+                System.Environment.Exit(0);
             }
         }
 
-        public bool IsWin()
+        private void MovingToMONEY(int y, int x)
         {
-            if (maze[height - 3, width - 1].type == MazeObject.MazeObjectType.CHAR
-                || player_money == money_in_maze)
+            ++player_money;
+            if (player_money == MazeObject.countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY])
             {
-                return true;
+                MessageBox.Show("Congratulations! You have collected all coins!");
+                System.Environment.Exit(0);
             }
-            return false;
+        }
+
+        public void IsFoundExit()
+        {
+            if (maze[height - 3, width - 1].type == MazeObject.MazeObjectType.CHAR)
+            {
+                MessageBox.Show("Win! Exit found");
+                System.Environment.Exit(0);
+            }
         }
     }
 }
