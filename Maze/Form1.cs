@@ -53,6 +53,9 @@ namespace Maze
                 case Keys.Down:
                     l.MovingPers(1, 0);
                     break;
+                case Keys.Space:
+                    l.LaserSwordAttack();
+                    break;
                 case Keys.Escape:
                     IsWantExit();
                     break;

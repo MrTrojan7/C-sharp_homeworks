@@ -13,6 +13,7 @@ namespace Maze
         private static Random r = new Random();
         private Form parent;
         private int[] countOFMazeObjects = new int[7];
+        private Timer timer;
 
         public short timerFromHealthToCoffee = 0;
         public short _health = 100;
@@ -28,7 +29,6 @@ namespace Maze
             this.parent = parent;
             maze = new MazeObject[height, width];
             lbl = new Label[height, width];
-
             Generate();
         }
 
@@ -56,8 +56,8 @@ namespace Maze
                         current = MazeObject.MazeObjectType.CUP_COFFEE;
                     }
 
-                    // в 1 случае из 150 - размещаем врага
-                    if (r.Next(100) == 0)
+                    // в 1 случае из 60 - размещаем врага
+                    if (r.Next(60) == 0)
                     {
                         current = MazeObject.MazeObjectType.ENEMY;
                     }
@@ -86,29 +86,8 @@ namespace Maze
                         current = MazeObject.MazeObjectType.HALL;
                     }
 
-                    switch (current)
-                    {
-                        case MazeObject.MazeObjectType.HALL:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.HALL];
-                            break;
-                        case MazeObject.MazeObjectType.WALL:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.WALL];
-                            break;
-                        case MazeObject.MazeObjectType.MONEY:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY];
-                            break;
-                        case MazeObject.MazeObjectType.ENEMY:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
-                            break;
-                        case MazeObject.MazeObjectType.CUP_COFFEE:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.CUP_COFFEE];
-                            break;
-                        case MazeObject.MazeObjectType.FIRST_AID_KIT:
-                            ++countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
-                            break;
-                        default:
-                            break;
-                    }
+                    QuantifyOfMazeObjects(current);
+
                     lbl[y, x] = new Label();
                     InitObject(y, x, current);
                 }
@@ -124,6 +103,33 @@ namespace Maze
             lbl[y, x].Height = 16;
             lbl[y, x].BackgroundImage = MazeObject.images[(int)maze[y, x].type];
             lbl[y, x].Visible = true;
+        }
+
+        private void QuantifyOfMazeObjects(MazeObject.MazeObjectType mazeObject)
+        {
+            switch (mazeObject)
+            {
+                case MazeObject.MazeObjectType.HALL:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.HALL];
+                    break;
+                case MazeObject.MazeObjectType.WALL:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.WALL];
+                    break;
+                case MazeObject.MazeObjectType.MONEY:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.MONEY];
+                    break;
+                case MazeObject.MazeObjectType.ENEMY:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.ENEMY];
+                    break;
+                case MazeObject.MazeObjectType.CUP_COFFEE:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.CUP_COFFEE];
+                    break;
+                case MazeObject.MazeObjectType.FIRST_AID_KIT:
+                    ++countOFMazeObjects[(int)MazeObject.MazeObjectType.FIRST_AID_KIT];
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void MovingPers(int y, int x)
@@ -153,9 +159,55 @@ namespace Maze
             }
         }
 
+        public void LaserSwordAttack()
+        {
+            if (energy < 61)
+            {
+                MessageBox.Show("Low Energy");
+                return;
+            }
+            energy -= 30;
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        continue;
+                    }
+                    if(IsValidPoint(i, j))
+                    {
+                        timer.Interval = 200;
+                        timer.Start();
+                        InitObject((coordY + j), (coordX + i), MazeObject.MazeObjectType.SWORD);
+                        timer.
+                        InitObject((coordY + j), (coordX + i), MazeObject.MazeObjectType.HALL);
+                        timer.Stop();
+                    }
+                }
+            }
+
+        }
+
+        private bool IsValidPoint(int x, int y)
+        {
+            if ((coordX + x) < this.width
+                || (coordX + x) >= 0
+                || (coordY + y) < this.height
+                || (coordY + y) >= 0)
+            {
+                if ((maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.ENEMY))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool IsPossibleMoving(int y, int x)
         {
-            if ((coordX + x) < 0 || (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL))
+            if ((coordX + x) < 0 || 
+                (maze[(coordY + y), (coordX + x)].type == MazeObject.MazeObjectType.WALL))
             {
                 return false;
             }
@@ -169,7 +221,7 @@ namespace Maze
             {
                 --timerFromHealthToCoffee;
             }
-            if (energy == 0)
+            if (energy <= 0)
             {
                 MessageBox.Show("GameOver. Energy = 0");
                 System.Environment.Exit(0);
